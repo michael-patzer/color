@@ -28,7 +28,7 @@
   <meta property="twitter:description" content="Match, explore, and create stunning color palettes with the ultimate iOS color design app for designers and creatives.">
   
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   
   <script type="application/ld+json">
   {
@@ -61,35 +61,265 @@
   
   <style>
     /* Reset and Base Styles */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Open Sans', sans-serif; line-height: 1.6; color: #333; background: #fff; }
-    html { scroll-behavior: smooth; }
+    :root {
+      --primary-color: #007aff;
+      --primary-hover: #0056b3;
+      --light-blue: #f0f7ff;
+      --dark-text: #333;
+      --gray-text: #555;
+      --light-gray: #e5e7eb;
+      --white: #ffffff;
+      --accent-color: #FF6B00;
+      --accent-hover: #E25D00;
+      --rounded: 12px;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
     
-    /* Improved Header */
-    header {
-      background: #007aff;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
     }
-    header img { width: 80px; margin-bottom: 10px; border-radius: 15px; }
-    header h1 { 
-      font-family: 'Poppins', sans-serif; 
-      font-size: 2.5rem; 
+    
+    body { 
+      font-family: 'Open Sans', sans-serif; 
+      line-height: 1.6; 
+      color: var(--dark-text); 
+      background: var(--white); 
+    }
+    
+    html { 
+      scroll-behavior: smooth; 
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.3;
       font-weight: 700;
-      color: #fff;
-      margin-top: 10px; 
     }
-
-    /* Enhanced Hero Section */
-    #hero {
-      padding: 80px 20px;
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    /* Header Styles */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.7);
+    }
+    
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      height: 70px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo img {
+      height: 56px;
+      border-radius: 12px;
+    }
+    
+    .logo h1 {
+      font-size: 1.25rem;
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+    
+    .app-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--rounded);
+      font-weight: 600;
+      transition: all 0.2s ease;
+      font-size: 1rem;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--accent-color);
+      color: var(--white);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      background-color: var(--light-blue);
+      color: var(--primary-color);
+    }
+    
+    .btn-secondary:hover {
+      background-color: #e1edff;
+      transform: translateY(-2px);
+    }
+    
+    .get-app-btn, .qr-button, .qr-button-top {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--accent-color);
+      color: var(--white);
+      border-radius: var(--rounded);
+      font-weight: 600;
+      transition: all 0.3s ease;
+      gap: 0.5rem;
+    }
+    
+    .get-app-btn:hover, .qr-button:hover, .qr-button-top:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+    
+    /* QR Popup Styles */
+    .qr-popup {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 10;
+      width: 180px;
       text-align: center;
+    }
+    
+    .qr-popup-top {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 10;
+      width: 180px;
+      text-align: center;
+    }
+    
+    /* Only show QR popups on desktop/hover-capable devices */
+    @media (hover: hover) {
+      .get-app-btn:hover .qr-popup, 
+      .qr-button:hover .qr-popup, 
+      .qr-button-top:hover .qr-popup-top {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+    
+    /* Explicitly hide QR popups on touch devices regardless of interaction */
+    @media (hover: none) {
+      .qr-popup, .qr-popup-top {
+        display: none !important;
+      }
+    }
+    
+    .qr-popup img, .qr-popup-top img {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .qr-popup p, .qr-popup-top p {
+      color: var(--dark-text);
+      font-size: 0.875rem;
+      margin-bottom: 0;
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 8rem 0 5rem;
       background: linear-gradient(135deg, #007aff, #34c759);
-      color: #fff;
+      color: var(--white);
       position: relative;
     }
+    
+    .hero-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
+    }
+    
+    .hero-text {
+      flex: 1;
+    }
+    
+    .hero h1 {
+      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+    }
+    
+    .hero-tagline {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    
     .rating {
       display: inline-block;
       margin-bottom: 20px;
@@ -98,105 +328,101 @@
       padding: 6px 12px;
       border-radius: 20px;
     }
+    
     .rating i {
       color: #FFD700;
       margin-right: 2px;
     }
-    #hero h2 { 
-      font-family: 'Poppins', sans-serif; 
-      font-size: 2.5rem; 
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 20px; 
-      position: relative;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+    
+    .hero-benefits {
+      list-style: none;
+      margin-bottom: 2.5rem;
     }
-    #hero p { 
-      font-size: 1.2rem; 
-      line-height: 1.6;
-      margin-bottom: 30px; 
-      position: relative;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .cta-container {
+    
+    .hero-benefits li {
+      margin-bottom: 1rem;
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 320px;
-      margin: 0 auto;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .hero-benefits i {
+      color: var(--white);
+      font-size: 1.25rem;
+    }
+    
+    .hero-image {
+      flex: 1;
       position: relative;
-    }
-    .cta-primary {
-      padding: 16px 32px;
-      border: none;
-      border-radius: 30px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.3s ease, background 0.3s ease;
-      text-decoration: none;
       text-align: center;
-      background: #FF6B00;
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(255,107,0,0.3);
+      max-width: 360px;
     }
-    .cta-primary:hover { background: #E25D00; transform: scale(1.05); }
     
-    .cta-secondary {
-      padding: 14px;
-      border: 2px solid #fff;
-      border-radius: 30px;
-      background: transparent;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.3s ease, background 0.3s ease;
-      text-decoration: none;
-      text-align: center;
+    .hero-image img {
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
     }
-    .cta-secondary:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
     
-    .cta-microcopy {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      margin-top: 5px;
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 10;
     }
-
+    
     /* How It Works Section */
-    #how-it-works {
-      padding: 60px 20px;
-      background: #f9f9f9;
+    .how-it-works {
+      padding: 6rem 0;
+      background-color: var(--white);
+    }
+    
+    .section-heading {
       text-align: center;
+      max-width: 800px;
+      margin: 0 auto 4rem;
     }
-    #how-it-works h3 { 
-      margin-bottom: 40px; 
-      font-family: 'Poppins', sans-serif; 
-      font-size: 2rem; 
-      color: #007aff; 
-      font-weight: 700;
+    
+    .section-heading h2 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      font-size: 2rem;
     }
+    
+    .section-heading p {
+      font-size: 1.125rem;
+      color: var(--gray-text);
+    }
+    
     .steps {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 30px;
+      gap: 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
+    
     .step {
       flex: 1 1 300px;
       text-align: center;
       position: relative;
+      background-color: var(--white);
+      padding: 2rem;
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
     }
+    
+    .step:hover {
+      transform: translateY(-5px);
+    }
+    
     .step-number {
       width: 40px;
       height: 40px;
-      background: #007aff;
+      background: var(--primary-color);
       color: white;
       border-radius: 50%;
       display: flex;
@@ -205,149 +431,159 @@
       margin: 0 auto 15px;
       font-weight: bold;
     }
-    .step h4 {
-      font-family: 'Poppins', sans-serif;
+    
+    .step h3 {
       font-size: 1.3rem;
       margin-bottom: 15px;
     }
+    
     .step p {
-      color: #555;
+      color: var(--gray-text);
     }
-    .step-arrow {
-      position: absolute;
-      top: 40px;
-      right: -20px;
-      font-size: 2rem;
-      color: #ccc;
-      display: none;
+    
+    /* Features Section */
+    .features {
+      padding: 6rem 0;
+      background-color: var(--light-blue);
+      border-radius: 24px;
+      margin: 3rem 0;
     }
-
-    /* Improved Features Section */
-    #features {
-      padding: 80px 20px;
-      background: #fff;
-    }
-    #features h3 { 
-      text-align: center; 
-      margin-bottom: 50px; 
-      font-family: 'Poppins', sans-serif; 
-      font-size: 2rem; 
-      color: #007aff;
-      font-weight: 700;
-    }
+    
     .feature-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      gap: 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
+    
     .feature-item {
-      background: #f9f9f9;
-      padding: 30px;
-      border-radius: 12px;
+      background: var(--white);
+      padding: 2rem;
+      border-radius: var(--rounded);
       text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow);
       transition: transform 0.3s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .feature-item:hover { transform: translateY(-5px); }
+    
+    .feature-item:hover {
+      transform: translateY(-5px);
+    }
+    
     .feature-icon {
+      width: 60px;
+      height: 60px;
+      background-color: var(--light-blue);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
       font-size: 2.5rem;
-      color: #007aff;
-      margin-bottom: 20px;
+      color: var(--primary-color);
     }
-    .feature-item h4 { 
-      margin-bottom: 15px; 
-      font-family: 'Poppins', sans-serif; 
-      font-size: 1.3rem; 
-      color: #333;
-      font-weight: 600;
+    
+    .feature-item h3 {
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      color: var(--dark-text);
     }
-    .feature-item p { font-size: 1rem; color: #555; margin-bottom: 15px; }
+    
+    .feature-item p {
+      font-size: 1rem;
+      color: var(--gray-text);
+      margin-bottom: 15px;
+    }
+    
     .feature-item a {
-      color: #007aff;
+      color: var(--primary-color);
       text-decoration: none;
       font-weight: 600;
       font-size: 0.9rem;
     }
+    
     .feature-item a:hover {
       text-decoration: underline;
     }
     
-    /* Social Proof Section */
-    #testimonials {
-      padding: 60px 20px;
-      background: #f0f7ff;
-      text-align: center;
+    /* Testimonials Section */
+    .testimonials {
+      padding: 6rem 0;
+      background-color: var(--light-blue);
+      border-radius: 24px;
+      margin: 3rem 0;
     }
-    #testimonials h3 {
-      margin-bottom: 40px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 2rem;
-      color: #007aff;
-      font-weight: 700;
-    }
+    
     .testimonials-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 25px;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
+    
     .testimonial {
-      flex: 1 1 300px;
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      background: var(--white);
+      padding: 2rem;
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
       text-align: left;
       position: relative;
     }
+    
     .testimonial-content {
       font-style: italic;
       margin-bottom: 20px;
-      color: #555;
+      color: var(--gray-text);
     }
+    
     .testimonial-stars {
       color: #FFD700;
       margin-bottom: 5px;
     }
+    
     .testimonial-user {
       display: flex;
       align-items: center;
     }
+    
     .testimonial-avatar {
       width: 50px;
       height: 50px;
       border-radius: 50%;
       margin-right: 15px;
-      background-color: #f0f0f0;
+      background-color: var(--light-blue);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      color: #007aff;
+      color: var(--primary-color);
     }
+    
     .testimonial-name {
       font-weight: 600;
     }
+    
     .testimonial-title {
       font-size: 0.9rem;
       color: #777;
     }
+    
     .brands-container {
       margin-top: 50px;
+      text-align: center;
     }
+    
     .brands-container h4 {
       margin-bottom: 20px;
       font-family: 'Poppins', sans-serif;
       font-size: 1.2rem;
       color: #555;
     }
+    
     .brands-logos {
       display: flex;
       justify-content: center;
@@ -355,54 +591,87 @@
       gap: 30px;
       opacity: 0.7;
     }
-    .brand-logo {
-      height: 30px;
-      width: auto;
-    }
+    
     .users-count {
       margin-top: 40px;
       font-size: 1.1rem;
       font-weight: 600;
-      color: #007aff;
+      color: var(--primary-color);
       background: rgba(0,122,255,0.1);
       padding: 10px 20px;
       border-radius: 30px;
       display: inline-block;
-    }
-
-    /* Improved Screenshots Gallery */
-    #screenshots {
-      padding: 60px 20px;
-      background: #fff;
       text-align: center;
     }
-    #screenshots h3 { 
-      margin-bottom: 40px; 
-      font-family: 'Poppins', sans-serif; 
-      font-size: 2rem; 
-      color: #007aff;
-      font-weight: 700;
+    
+    /* Screenshots Section */
+    .screenshots {
+      padding: 6rem 0;
+      background: var(--white);
     }
+    
     .screenshots-container {
       position: relative;
       max-width: 1000px;
       margin: 0 auto;
     }
-    .screenshots-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 25px;
-      justify-items: center;
+    
+    .screenshots-slider {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding: 1.5rem 0;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      padding-bottom: 2rem;
+      margin-bottom: 3rem;
     }
-    .screenshots-grid img {
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    
+    .screenshots-slider::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .screenshot-item {
+      flex: 0 0 auto;
+      width: 270px;
       transition: transform 0.3s ease;
-      max-width: 250px;
-      width: 100%;
-      height: auto;
     }
-    .screenshots-grid img:hover { transform: scale(1.05); }
+    
+    .screenshot-item:hover {
+      transform: scale(1.05);
+    }
+    
+    .screenshot-item img {
+      width: 100%;
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+    }
+    
+    .screenshots-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .screenshot-nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: var(--light-blue);
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .screenshot-nav-btn:hover {
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+    
     .swipe-hint {
       display: none;
       text-align: center;
@@ -410,30 +679,31 @@
       margin-top: 15px;
       font-size: 0.9rem;
     }
-
+    
     /* Video Section */
-    #video {
-      padding: 60px 20px;
-      background: #f9f9f9;
+    .video {
+      padding: 6rem 0;
+      background-color: var(--light-blue);
       text-align: center;
     }
-    #video h3 { 
-      margin-bottom: 30px; 
-      font-family: 'Poppins', sans-serif; 
-      font-size: 2rem; 
-      color: #007aff;
-      font-weight: 700;
+    
+    .video h3 {
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: var(--primary-color);
     }
+    
     .video-container {
       position: relative;
-      padding-bottom: 40%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
       height: 0;
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: var(--rounded);
       max-width: 700px;
       margin: 0 auto;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      box-shadow: var(--shadow);
     }
+    
     .video-container iframe, .video-container video {
       position: absolute;
       top: 0;
@@ -441,54 +711,192 @@
       width: 100%;
       height: 100%;
     }
-
-    /* Improved SMS Opt-In Section */
-    #sms {
-      padding: 60px 20px;
-      background: linear-gradient(135deg, #007aff, #34c759);
+    
+    /* SMS Section */
+    .sms-section {
+      background-color: var(--light-blue);
+      border-radius: var(--rounded);
+      padding: 3rem;
+      margin: 3rem 0;
       text-align: center;
-      color: #fff;
     }
-    #sms h3 { 
-      font-family: 'Poppins', sans-serif; 
-      font-size: 2rem; 
-      margin-bottom: 20px;
-      font-weight: 700;
+    
+    .sms-section h3 {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      color: var(--primary-color);
     }
-    #sms p.sms-intro {
+    
+    .sms-intro {
       max-width: 600px;
       margin: 0 auto 30px;
       font-size: 1.1rem;
+      color: var(--gray-text);
     }
-    #sms form {
-      max-width: 400px;
+    
+    .sms-form {
+      max-width: 500px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
-    #sms input[type="tel"] {
+    
+    .sms-form input[type="tel"] {
       padding: 16px;
-      border: none;
+      border: 1px solid var(--light-gray);
       border-radius: 30px;
       font-size: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    #sms input[type="submit"] {
+    
+    .sms-form input[type="submit"] {
       padding: 16px;
       border: none;
       border-radius: 30px;
-      background: #FF6B00;
-      color: #fff;
+      background: var(--accent-color);
+      color: var(--white);
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.3s ease, transform 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    #sms input[type="submit"]:hover {
-      background: #E25D00;
+    
+    .sms-form input[type="submit"]:hover {
+      background: var(--accent-hover);
       transform: scale(1.05);
+    }
+    
+    .consent-text {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--gray-text);
+      text-align: left;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      background-color: var(--primary-color);
+      border-radius: 24px;
+      padding: 4rem 3rem;
+      margin: 3rem 0;
+      text-align: center;
+      color: var(--white);
+    }
+    
+    .cta-section h2 {
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+      font-size: 1.125rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Override for QR popup text in CTA section */
+    .cta-section .qr-popup-top p {
+      color: var(--dark-text);
+      font-size: 0.875rem;
+      margin-bottom: 0;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 30px 20px;
+      background: #333;
+      color: #fff;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      text-align: left;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-logo img {
+      height: 40px;
+      border-radius: 10px;
+    }
+    
+    .footer-logo h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0;
+      color: var(--white);
+    }
+    
+    .footer-about p {
+      margin-bottom: 1.5rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      transition: all 0.2s ease;
+    }
+    
+    .social-links a:hover {
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    .footer-links h3 {
+      font-size: 1.125rem;
+      margin-bottom: 1.5rem;
+      color: var(--white);
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links ul li {
+      margin-bottom: 0.75rem;
+    }
+    
+    .footer-links ul li a {
+      color: rgba(255, 255, 255, 0.8);
+      transition: all 0.2s ease;
+    }
+    
+    .footer-links ul li a:hover {
+      color: var(--white);
+      padding-left: 0.25rem;
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.875rem;
     }
     
     /* Sticky CTA for Mobile */
@@ -504,10 +912,11 @@
       z-index: 100;
       text-align: center;
     }
+    
     .sticky-cta a {
       display: inline-block;
       padding: 12px 24px;
-      background: #FF6B00;
+      background: var(--accent-color);
       color: white;
       border-radius: 30px;
       text-decoration: none;
@@ -515,156 +924,268 @@
       width: 80%;
       max-width: 300px;
     }
-
-    /* Footer */
-    footer {
-      padding: 30px 20px;
-      background: #333;
-      color: #fff;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    /* Responsive Improvements */
-    @media (min-width: 768px) {
-      .cta-container { 
-        flex-direction: row; 
-        justify-content: center; 
-        max-width: 500px;
+    
+    /* Responsive Styles */
+    @media screen and (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
       }
-      .step-arrow {
+      
+      .hero-text, .hero-image {
+        max-width: 100%;
+      }
+      
+      .feature-list {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .testimonials-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: var(--white);
+        padding: 1.5rem;
+        flex-direction: column;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .app-cta {
+        display: none;
+      }
+      
+      .hamburger {
         display: block;
-      }
-      .steps {
-        flex-direction: row;
       }
     }
     
-    @media (max-width: 767px) {
-      #hero h2 {
-        font-size: 2rem;
+    @media screen and (max-width: 768px) {
+      h1 {
+        font-size: 2.25rem;
       }
-      #hero p {
-        font-size: 1.1rem;
+      
+      h2 {
+        font-size: 1.75rem;
       }
-      .cta-primary, .cta-secondary {
-        width: 100%;
-      }
+      
       .feature-list {
         grid-template-columns: 1fr;
       }
-      .testimonials-container {
+      
+      .steps {
         flex-direction: column;
       }
-      .screenshots-grid {
+      
+      .sms-form {
+        flex-direction: column;
+      }
+      
+      .hero-cta {
+        flex-direction: column;
+      }
+    }
+    
+    @media screen and (max-width: 576px) {
+      .section-heading h2 {
+        font-size: 1.5rem;
+      }
+      
+      .screenshots-slider {
         display: flex;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         gap: 15px;
         padding-bottom: 15px;
       }
-      .screenshots-grid img {
+      
+      .screenshot-item {
         scroll-snap-align: center;
         min-width: 220px;
       }
+      
       .swipe-hint {
         display: block;
       }
+      
       .sticky-cta {
         display: block;
       }
-      .video-container {
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      
+      .cta-section, .sms-section {
+        padding: 2rem 1.5rem;
       }
     }
   </style>
 </head>
+
 <body>
+  <!-- Header -->
   <header>
-    <img src="images/app-icon.png" alt="Color Identifier & Paint Match App Icon - AI Color Matching Tool">
-    <h1>Color Identifier & Paint Match</h1>
+    <div class="container">
+      <div class="nav-container">
+        <div class="logo">
+          <img src="images/app-icon.png" alt="Color Identifier & Paint Match App Icon">
+          <h1>Color Identifier</h1>
+        </div>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#screenshots">Screenshots</a></li>
+          </ul>
+        </nav>
+        <div class="app-cta">
+          <a href="javascript:void(0)" onclick="scrollToSMS()" class="btn btn-secondary">Text me the Link</a>
+          <a href="https://apps.apple.com/app/apple-store/id6738211457?pt=649248&ct=mobilecloudlandingpage&mt=8" class="get-app-btn">
+            <i class="fab fa-apple"></i> Get Free App
+            <div class="qr-popup">
+              <img src="images/qrcode.png" alt="App Store QR Code">
+              <p>Scan to download</p>
+            </div>
+          </a>
+        </div>
+        <div class="hamburger">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <main>
-    <section id="hero">
-      <div class="rating">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5/5 on the App Store
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="rating">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5/5 on the App Store
+          </div>
+          <h1>The Ultimate Color Tool for Designers</h1>
+          <p class="hero-tagline">Browse 30,000+ colors, discover harmonies, check contrast for accessibility, extract colors from photos, and match to paint brands—all in one app</p>
+          <ul class="hero-benefits">
+            <li><i class="fas fa-check-circle"></i> Explore 30,000+ colors with exact HEX, RGB & CMYK codes</li>
+            <li><i class="fas fa-check-circle"></i> Extract color palettes from any photo</li>
+            <li><i class="fas fa-check-circle"></i> Match colors to major paint brands</li>
+          </ul>
+          <div class="hero-cta">
+            <a href="https://apps.apple.com/app/apple-store/id6738211457?pt=649248&ct=mobilecloudlandingpage&mt=8" class="btn btn-primary qr-button-top">
+              <i class="fab fa-apple"></i> Get Free App
+              <div class="qr-popup-top">
+                <img src="images/qrcode.png" alt="App Store QR Code">
+                <p>Scan to download</p>
+              </div>
+            </a>
+            <a href="javascript:void(0)" onclick="scrollToSMS()" class="btn btn-secondary">Text Me the Link</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="images/screenshot1.png" alt="Color Identifier & Paint Match App - Home Screen Interface">
+        </div>
       </div>
-      <h2>The Ultimate Color Tool for Designers</h2>
-      <p>Browse 30,000+ colors, discover harmonies, check contrast for accessibility, extract colors from photos, and match to paint brands—all in one app</p>
-      <div class="cta-container">
-        <a href="https://apps.apple.com/app/apple-store/id6738211457?pt=649248&ct=mobilecloudlandingpage&mt=8" class="cta-primary" target="_blank" rel="noopener noreferrer" aria-label="Get the free app now">Get Free App</a>
-        <button id="smsButton" class="cta-secondary" aria-label="Get app link via SMS">Text Me the Link</button>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="how-it-works">
-      <h3>How It Works</h3>
+  <!-- How It Works Section -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-heading">
+        <h2>How It Works</h2>
+        <p>Three simple steps to perfect color selection</p>
+      </div>
       <div class="steps">
         <div class="step">
           <div class="step-number">1</div>
-          <h4>Discover</h4>
+          <h3>Discover</h3>
           <p>Explore our library of 30,000+ colors, use the color wheel to find perfect harmonies, or extract colors from photos</p>
-          <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="step">
           <div class="step-number">2</div>
-          <h4>Analyze</h4>
+          <h3>Analyze</h3>
           <p>Check color contrast for accessibility, find complementary colors, and get exact color codes (HEX, RGB, CMYK)</p>
-          <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="step">
           <div class="step-number">3</div>
-          <h4>Create</h4>
+          <h3>Create</h3>
           <p>Save favorites, build custom palettes, match to paint brands, and share with your team or clients</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="features">
-      <h3>Key Features</h3>
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Key Features</h2>
+        <p>Powerful tools for designers, artists, and color enthusiasts</p>
+      </div>
       <div class="feature-list">
         <div class="feature-item">
           <div class="feature-icon"><i class="fas fa-palette"></i></div>
-          <h4>Extensive Color Library</h4>
+          <h3>Extensive Color Library</h3>
           <p>Browse over 30,000 colors organized by hue, shade, and collection. Find the perfect color for any design project.</p>
           <a href="#screenshots">See library <i class="fas fa-chevron-right"></i></a>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
-          <h4>Color Harmony Tool</h4>
+          <h3>Color Harmony Tool</h3>
           <p>Discover complementary, analogous, triadic, and split-complementary color schemes with our interactive color wheel.</p>
           <a href="#video">See in action <i class="fas fa-chevron-right"></i></a>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><i class="fas fa-universal-access"></i></div>
-          <h4>Accessibility Checker</h4>
+          <h3>Accessibility Checker</h3>
           <p>Verify color contrast ratios for WCAG compliance. Ensure your designs are accessible to all users.</p>
           <a href="#screenshots">View examples <i class="fas fa-chevron-right"></i></a>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><i class="fas fa-paint-roller"></i></div>
-          <h4>Paint Brand Matching</h4>
+          <h3>Paint Brand Matching</h3>
           <p>Match any color to equivalent options from major paint brands for your home improvement projects.</p>
           <a href="#screenshots">See matches <i class="fas fa-chevron-right"></i></a>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><i class="fas fa-camera"></i></div>
-          <h4>Color Extraction</h4>
+          <h3>Color Extraction</h3>
           <p>Extract color palettes from any photo. Capture inspiration from nature, art, or your surroundings.</p>
           <a href="#video">Watch demo <i class="fas fa-chevron-right"></i></a>
         </div>
         <div class="feature-item">
           <div class="feature-icon"><i class="fas fa-swatchbook"></i></div>
-          <h4>Custom Palette Creation</h4>
+          <h3>Custom Palette Creation</h3>
           <p>Create, save, and share your own color collections for branding, design projects, or home decor.</p>
           <a href="#screenshots">See examples <i class="fas fa-chevron-right"></i></a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="testimonials">
-      <h3>What Our Users Say</h3>
+  <!-- Testimonials Section -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-heading">
+        <h2>What Our Users Say</h2>
+        <p>Join thousands of satisfied designers and color enthusiasts</p>
+      </div>
       <div class="testimonials-container">
         <div class="testimonial">
           <div class="testimonial-stars">
@@ -724,71 +1245,169 @@
       </div>
     </section>
 
-    <section id="screenshots" aria-label="App Screenshots Gallery">
-      <h3>App Screenshots</h3>
+  <!-- Screenshots Section -->
+  <section class="screenshots" id="screenshots">
+    <div class="container">
+      <div class="section-heading">
+        <h2>App Screenshots</h2>
+        <p>See the app in action</p>
+      </div>
       <div class="screenshots-container">
-        <div class="screenshots-grid">
-          <img src="images/screenshot1.png" alt="Color Identifier App - Home Screen Interface">
-          <img src="images/screenshot2.png" alt="Color Identifier App - Color Detection Feature">
-          <img src="images/screenshot3.png" alt="Color Identifier App - Saved Color Palettes">
-          <img src="images/screenshot4.png" alt="Color Identifier App - Paint Brand Matching">
-          <img src="images/screenshot5.png" alt="Color Identifier App - Color Analysis Tools">
-          <img src="images/screenshot6.png" alt="Color Identifier App - Custom Palette Creator">
+        <div class="screenshots-slider">
+          <div class="screenshot-item">
+            <img src="images/screenshot1.png" alt="Color Identifier App - Home Screen Interface">
+          </div>
+          <div class="screenshot-item">
+            <img src="images/screenshot2.png" alt="Color Identifier App - Color Detection Feature">
+          </div>
+          <div class="screenshot-item">
+            <img src="images/screenshot3.png" alt="Color Identifier App - Saved Color Palettes">
+          </div>
+          <div class="screenshot-item">
+            <img src="images/screenshot4.png" alt="Color Identifier App - Paint Brand Matching">
+          </div>
+          <div class="screenshot-item">
+            <img src="images/screenshot5.png" alt="Color Identifier App - Color Analysis Tools">
+          </div>
+          <div class="screenshot-item">
+            <img src="images/screenshot6.png" alt="Color Identifier App - Custom Palette Creator">
+          </div>
+        </div>
+        <div class="screenshots-nav">
+          <div class="screenshot-nav-btn screenshot-prev">
+            <i class="fas fa-arrow-left"></i>
+          </div>
+          <div class="screenshot-nav-btn screenshot-next">
+            <i class="fas fa-arrow-right"></i>
+          </div>
         </div>
         <div class="swipe-hint">
           <i class="fas fa-hand-point-right"></i> Swipe to see more screenshots
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="video">
+  <!-- Video Section -->
+  <section class="video" id="video">
+    <div class="container">
       <h3>See It In Action</h3>
       <div class="video-container">
         <iframe src="https://www.youtube.com/embed/LjjccLeYZFM" title="Color Identifier & Paint Match App Preview Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="sms">
+  <!-- SMS Section -->
+  <div class="container">
+    <section class="sms-section" id="sms">
       <h3>Get the App Link via SMS</h3>
       <p class="sms-intro">Enter your mobile number and we'll send you a direct download link to try the app today</p>
-      <form id="smsForm" aria-label="SMS app link request form">
+      <form id="smsForm" class="sms-form" aria-label="SMS app link request form">
         <input type="tel" name="phone" placeholder="Enter your mobile number" required aria-label="Your mobile phone number">
         <input type="submit" value="Send Me the App">
-        <p class="consent-text" style="margin-top: 10px; font-size: 0.8rem; text-align: left;">
+        <p class="consent-text">
           By clicking "Send Me the App", you consent to receive a one-time SMS message with your app download link. Message & data rates may apply. Reply HELP for help, STOP to cancel. Your consent is not required as a condition to purchase.
         </p>
       </form>
     </section>
-  </main>
+  </div>
 
+  <!-- CTA Section -->
+  <div class="container">
+    <section class="cta-section" id="download">
+      <h2>Ready to Discover the Perfect Colors?</h2>
+      <p>Download the app today to explore, match, and create stunning color palettes for your designs.</p>
+      <a href="https://apps.apple.com/app/apple-store/id6738211457?pt=649248&ct=mobilecloudlandingpage&mt=8" class="btn qr-button-top">
+        <i class="fab fa-apple"></i> Get Free App
+        <div class="qr-popup-top">
+          <img src="images/qrcode.png" alt="App Store QR Code">
+          <p>Scan to download</p>
+        </div>
+      </a>
+    </section>
+  </div>
+
+  <!-- Sticky CTA for Mobile -->
   <div class="sticky-cta">
     <a href="https://apps.apple.com/app/apple-store/id6738211457?pt=649248&ct=mobilecloudlandingpage&mt=8" target="_blank" rel="noopener noreferrer">
       <i class="fas fa-download"></i> Get Free App
     </a>
   </div>
 
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Mobile Card Games & Travel Apps LLC. All Rights Reserved.</p>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <div class="footer-logo">
+            <img src="images/app-icon.png" alt="Color Identifier & Paint Match Logo">
+            <h2>Color Identifier</h2>
+          </div>
+          <p>The ultimate color tool for designers, artists, and anyone who works with color. Identify, match, and create stunning color palettes for your design projects.</p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/coloridentifier/" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/coloridentifier" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="https://www.privacypolicies.com/generic/">Privacy Policy</a></li>
+            <li><a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Mobile Card Games & Travel Apps LLC. All Rights Reserved.</p>
+      </div>
+    </div>
   </footer>
 
   <script>
-    // Lazy load images
-    document.addEventListener("DOMContentLoaded", function() {
-      if ('loading' in HTMLImageElement.prototype) {
-        // Browser supports native lazy loading
-        const images = document.querySelectorAll('img[loading="lazy"]');
-        images.forEach(img => {
-          img.src = img.dataset.src;
-        });
-      } else {
-        // Use a polyfill for lazy loading
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-        document.body.appendChild(script);
-      }
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
     });
     
-    // SMS Form Submission using Fetch API
+    // Screenshots navigation
+    const screenshotsSlider = document.querySelector('.screenshots-slider');
+    const prevButton = document.querySelector('.screenshot-prev');
+    const nextButton = document.querySelector('.screenshot-next');
+    
+    prevButton.addEventListener('click', () => {
+      screenshotsSlider.scrollBy({ left: -300, behavior: 'smooth' });
+    });
+    
+    nextButton.addEventListener('click', () => {
+      screenshotsSlider.scrollBy({ left: 300, behavior: 'smooth' });
+    });
+    
+    // Function to scroll to SMS section
+    function scrollToSMS() {
+      const smsSection = document.getElementById('sms');
+      const headerHeight = document.querySelector('header').offsetHeight;
+      const smsPosition = smsSection.getBoundingClientRect().top + window.pageYOffset;
+      
+      window.scrollTo({
+        top: smsPosition - headerHeight - 20,
+        behavior: 'smooth'
+      });
+    }
+    
+    // SMS Form Submission
     document.getElementById('smsForm').addEventListener('submit', function(e) {
       e.preventDefault();
       var phone = this.phone.value;
@@ -805,25 +1424,18 @@
       .then(data => {
         if (data.success) {
           alert('App link sent! Check your phone in a moment.');
+          this.reset();
         } else {
           alert('Error sending SMS: ' + data.error);
         }
       })
       .catch(err => console.error(err));
     });
-
-    // Scroll to SMS section when button is clicked
-    document.getElementById('smsButton').addEventListener('click', function() {
-      document.getElementById('sms').scrollIntoView({ behavior: 'smooth' });
-    });
-    
-    // Initialize carousel for screenshots on mobile
-    const screenshotsGrid = document.querySelector('.screenshots-grid');
     
     // Show/hide sticky CTA based on scroll position
     window.addEventListener('scroll', function() {
       const stickyCta = document.querySelector('.sticky-cta');
-      const heroSection = document.getElementById('hero');
+      const heroSection = document.getElementById('home');
       
       if (window.scrollY > heroSection.offsetHeight) {
         stickyCta.style.display = 'block';
@@ -831,4 +1443,25 @@
         stickyCta.style.display = 'none';
       }
     });
+    
+    // Disable hover for touch devices
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if device is touch-enabled
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        // Get all QR code popups and ensure they're hidden on touch devices
+        const qrPopups = document.querySelectorAll('.qr-popup, .qr-popup-top');
+        qrPopups.forEach(popup => {
+          popup.style.display = 'none';
+        });
+        
+        // Remove hover-related classes and attributes from the buttons
+        const qrButtons = document.querySelectorAll('.get-app-btn, .qr-button, .qr-button-top');
+        qrButtons.forEach(button => {
+          // Make sure hover doesn't interfere with normal button functionality
+          button.style.pointerEvents = 'auto';
+        });
+      }
+    });
   </script>
+</body>
+</html>
